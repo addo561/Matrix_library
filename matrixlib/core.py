@@ -7,19 +7,20 @@ import  random
 
 class MatrixCreation:
     @staticmethod
-    def matrix_2d(inputs: Union[List,Tuple],function,Type):
-        if isinstance(inputs,tuple ) and  function is None: #for zeros  and ones
+    def matrix_2d(inputs: Union[List,Tuple],function=None,Type=None):
+        if isinstance(inputs,tuple ) and function is None: #for zeros  and ones
             L =  [ [Type for _ in  range(inputs[1])] for _ in  range(inputs[0])]
             return  L
 
         if  function =='normal':
             L =  [ [0 for _ in  range(inputs[1])] for _ in  range(inputs[0])]
-            idx =  0
-            for i in range(len(L)):
-                for j in range(len(L[0])):
-                        L[i][j] = Type[idx]
-                        idx += 1
-            return L
+            if Type:
+                idx =  0
+                for i in range(len(L)):
+                    for j in range(len(L[0])):
+                            L[i][j] = Type[idx]
+                            idx += 1
+                return L
 
         return  inputs #returns initialized list
 
@@ -71,5 +72,5 @@ class MatrixCreation:
         return random.randint(x,y)
 
 #just for checking  whiles coding,wrote  tests  later
-m = MatrixCreation.ones(2,2)
+m = MatrixCreation.matrix_1d([1,2])
 print(m)
