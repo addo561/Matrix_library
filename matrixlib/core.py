@@ -8,7 +8,7 @@ import  random
 class MatrixCreation:
     @staticmethod
     def matrix_2d(inputs: Union[List,Tuple],function,Type):
-        if type(inputs) == tuple and not function: #for zeros  and ones
+        if isinstance(inputs,tuple ) and  function is None: #for zeros  and ones
             L =  [ [Type for _ in  range(inputs[1])] for _ in  range(inputs[0])]
             return  L
 
@@ -27,7 +27,7 @@ class MatrixCreation:
     @staticmethod
     def matrix_1d(t_L:Union[List,int],Type=None,):
         #for ones and  zeros
-        if type(t_L)==int :
+        if isinstance(t_L,int):
             L =  [Type for _ in range(t_L)]
             return L
         return t_L #returns initialized list
@@ -71,5 +71,5 @@ class MatrixCreation:
         return random.randint(x,y)
 
 #just for checking  whiles coding,wrote  tests  later
-m = MatrixCreation.normal(-5,5,size=(3,1))
+m = MatrixCreation.ones(2,2)
 print(m)
