@@ -83,5 +83,5 @@ class MatrixCreation:
         return random.randint(x,y)
 
 #just for checking  whiles coding,wrote  tests  later
-m = MatrixCreation.matrix_1d([1,2])
+m = MatrixCreation.Identity(2,2)
 print(m)
