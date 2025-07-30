@@ -1,6 +1,7 @@
 # Matrix class and basic operations
 # focuses on 1d,2d
 from typing_extensions import List,Tuple
+import  random
 
 
 class MatrixCreation:
@@ -9,7 +10,7 @@ class MatrixCreation:
         if type(inputs) == tuple : #for zeros  and ones
             L =  [ [Type for _ in  range(inputs[1])] for _ in  range(inputs[0])]
             return  L
-        return  inputs
+        return  inputs #returns initialized list
 
 
     @staticmethod
@@ -18,7 +19,7 @@ class MatrixCreation:
         if type(t_L)==int:
             L =  [Type for _ in range(t_L)]
             return L
-        return t_L
+        return t_L #returns initialized list
 
     @staticmethod
     def zeros(n1=None,n2=None):
@@ -49,9 +50,9 @@ class MatrixCreation:
         pass
 
     @staticmethod
-    def randint():
-        pass
+    def randint(x,y):
+        return random.randint(x,y)
 
 #just for checking  whiles coding,wrote  tests  later
-m = MatrixCreation.matrix_2d([[1],[2],[3]])
+m = MatrixCreation.randint(1,10)
 print(m)
