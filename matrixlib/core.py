@@ -1,22 +1,33 @@
 # Matrix class and basic operations
 # focuses on 1d,2d
 from typing_extensions import List,Tuple
+from typing import Union
 import  random
 
 
 class MatrixCreation:
     @staticmethod
-    def matrix_2d(inputs: List|Tuple,Type=None):
-        if type(inputs) == tuple : #for zeros  and ones
+    def matrix_2d(inputs: Union[List,Tuple],function,Type):
+        if type(inputs) == tuple and not function: #for zeros  and ones
             L =  [ [Type for _ in  range(inputs[1])] for _ in  range(inputs[0])]
             return  L
+
+        if  function =='normal':
+            L =  [ [0 for _ in  range(inputs[1])] for _ in  range(inputs[0])]
+            idx =  0
+            for i in range(len(L)):
+                for j in range(len(L[0])):
+                        L[i][j] = Type[idx]
+                        idx += 1
+            return L
+
         return  inputs #returns initialized list
 
 
     @staticmethod
-    def matrix_1d(t_L:List|int,Type=None):
+    def matrix_1d(t_L:Union[List,int],Type=None,):
         #for ones and  zeros
-        if type(t_L)==int:
+        if type(t_L)==int :
             L =  [Type for _ in range(t_L)]
             return L
         return t_L #returns initialized list
@@ -28,7 +39,7 @@ class MatrixCreation:
         if n1 and not  n2:
             zeros = MatrixCreation.matrix_1d(n1,Type=0)# O for zeros
         elif  n1 and n2 :
-            zeros =  MatrixCreation.matrix_2d((n1,n2),Type=0)
+            zeros =  MatrixCreation.matrix_2d((n1,n2),function=None,Type=0)
         return  zeros
 
     @staticmethod
@@ -38,7 +49,7 @@ class MatrixCreation:
         if n1 and not  n2:
             ones = MatrixCreation.matrix_1d(n1,Type=1)# 1 for ones
         elif  n1 and n2 :
-            ones =  MatrixCreation.matrix_2d((n1,n2),Type=1)
+            ones =  MatrixCreation.matrix_2d((n1,n2),function=None,Type=1)
         return  ones
 
     @staticmethod
@@ -49,9 +60,9 @@ class MatrixCreation:
     def normal(low,high,size:Tuple):
         normal = []
         if len(size) == 1:
-            normal = MatrixCreation.matrix_1d(size[0],Type=random.uniform(low,high))
+            normal = [random.uniform(low,high) for i in range(size[0])]
         else:
-            normal = MatrixCreation.matrix_2d(size,Type=random.uniform(low,high))
+            normal = MatrixCreation.matrix_2d(size,function='normal',Type=[random.uniform(low,high) for _ in range(size[0]*size[1])])
         return  normal
 
 
@@ -60,5 +71,5 @@ class MatrixCreation:
         return random.randint(x,y)
 
 #just for checking  whiles coding,wrote  tests  later
-m = MatrixCreation.randint(1,10)
+m = MatrixCreation.normal(-5,5,size=(3,1))
 print(m)
