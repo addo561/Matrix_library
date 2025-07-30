@@ -46,8 +46,14 @@ class MatrixCreation:
         pass
 
     @staticmethod
-    def rand():
-        pass
+    def normal(low,high,size:Tuple):
+        normal = []
+        if len(size) == 1:
+            normal = MatrixCreation.matrix_1d(size[0],Type=random.uniform(low,high))
+        else:
+            normal = MatrixCreation.matrix_2d(size,Type=random.uniform(low,high))
+        return  normal
+
 
     @staticmethod
     def randint(x,y):
