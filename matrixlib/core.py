@@ -5,7 +5,7 @@ from typing_extensions import List,Tuple
 
 class MatrixCreation:
     @staticmethod
-    def matrix_2d(inputs: List|int):
+    def matrix_2d(inputs: List|Tuple):
         pass
 
     @staticmethod
@@ -23,12 +23,12 @@ class MatrixCreation:
     def ones(n1=None,n2=None):
         #takes input  as two integera
         ones = []
-        if n1:
+        if n1 and not n2:
             ones = MatrixCreation.matrix_1d(n1)
-        elif n2:
+        elif n2 and not n1:
             ones = MatrixCreation.matrix_1d(n2)
-        elif not  n1 and n2 :
-            ones =  MatrixCreation.matrix_2d(n1,n2)
+        elif  n1 and n2 :
+            ones =  MatrixCreation.matrix_2d((n1,n2))
         return  ones
 
     @staticmethod
