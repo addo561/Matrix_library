@@ -6,15 +6,17 @@ from typing_extensions import List,Tuple
 class MatrixCreation:
     @staticmethod
     def matrix_2d(inputs: List|Tuple,Type:str):
-        if type(inputs) == tuple and  Type == 'O':
-
+        if type(inputs) == tuple and  Type == '1s':
+            L =  [ 1 for _ in  range(inputs[1]) for _ in  range(inputs[0])]
+            return  L
+        return  inputs
 
 
     @staticmethod
     def matrix_1d(t_L:List|int,Type:str):
-        #for zeros
-        if type(t_L)==int and Type == 'O':
-            L =  [0 for _ in range(t_L)]
+        #for ones
+        if type(t_L)==int and Type == '1s':
+            L =  [1 for _ in range(t_L)]
             return L
         return t_L
 
@@ -27,9 +29,9 @@ class MatrixCreation:
         #takes input  as two integers
         ones = []
         if n1:
-            ones = MatrixCreation.matrix_1d(n1,Type='O')# O for ones
+            ones = MatrixCreation.matrix_1d(n1,Type='1s')# 1 for ones
         elif  n1 and n2 :
-            ones =  MatrixCreation.matrix_2d((n1,n2),Type='O')
+            ones =  MatrixCreation.matrix_2d((n1,n2),Type='1s')
         return  ones
 
     @staticmethod
