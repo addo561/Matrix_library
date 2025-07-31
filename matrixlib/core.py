@@ -13,6 +13,10 @@ class MatrixCreation:
             return  L
 
         if  function =='normal':
+            if isinstance(inputs,tuple) :
+                raise ValueError('must be a tuple')
+            if inputs[0]<0 or inputs[1]<0:
+                raise ValueError('dimensions must be positive')
             L =  [ [0 for _ in  range(inputs[1])] for _ in  range(inputs[0])]
             if Type:
                 idx =  0
@@ -22,6 +26,10 @@ class MatrixCreation:
                             idx += 1
                 return L
         if function  ==  'I':
+            if isinstance(inputs,tuple) :
+                raise ValueError('must be a tuple')
+            if inputs[0]<0 or inputs[1]<0:
+                raise ValueError('dimensions must be positive')
             matrix  = [ [0 for _ in  range(inputs[1])] for _ in  range(inputs[0])]
             for i in range(inputs[0]):
                 for j  in range(inputs[1]):
@@ -34,12 +42,13 @@ class MatrixCreation:
     @staticmethod
     def matrix_1d(t_L:Union[List,int],function=None,Type=None,):
         #for ones and  zeros
+
         if isinstance(t_L,int) and function is None:
             L =  [Type for _ in range(t_L)]
             return L
         if isinstance(t_L,List):
             return t_L
-        raise ValueError('should not be scalar')
+        raise ValueError('should not be int or  list')
 
     @staticmethod
     def zeros(n1=None,n2=None):
