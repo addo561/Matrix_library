@@ -31,7 +31,7 @@ class MatrixCreation:
                 return matrix
         except Exception  as e:
             print(f'Error:{e}')
-            return  inputs #returns initialized list
+        return  inputs #returns initialized list
 
 
     @staticmethod
@@ -43,7 +43,7 @@ class MatrixCreation:
                 return L
         except Exception as e:
             print(f'Error: {e}')
-            return t_L #returns initialized list
+        return t_L #returns initialized list
 
     @staticmethod
     def zeros(n1=None,n2=None):
@@ -74,6 +74,8 @@ class MatrixCreation:
 
     @staticmethod
     def normal(low,high,size:Tuple):
+        assert low > high ,'low value grreater than high'
+        assert size == Tuple, 'size must be a tuple'
         normal = []
         if len(size) == 1:
             normal = [random.uniform(low,high) for i in range(size[0])]
