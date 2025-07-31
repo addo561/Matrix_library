@@ -9,8 +9,8 @@ class MatrixCreation:
     @staticmethod
     def matrix_2d(inputs: Union[List,Tuple],function=None,Type=None):
 
-        if  isinstance(inputs,int):
-            raise ValueError('must be int form')
+        if  isinstance(inputs,int) and function is None and Type is  None:
+            raise ValueError('must be list form')
         if isinstance(inputs,tuple ) and function is None: #for zeros  and ones
             L =  [ [Type for _ in  range(inputs[1])] for _ in  range(inputs[0])]
             return  L
@@ -46,14 +46,20 @@ class MatrixCreation:
     @staticmethod
     def matrix_1d(t_L:Union[List,int],function=None,Type=None,):
         #for ones and  zeros
-        if isinstance(t_L,List):
-            return t_L
+        if  isinstance(t_L,int) and function is None and Type is  None:
+            raise ValueError('must be list form')
         if isinstance(t_L,int) :
             if function is None:
                 L =  [Type for _ in range(t_L)]
                 return L
-            else:
-                raise ValueError('must not be a  scalar(list form is a must)')
+
+        if isinstance(t_L,List):
+            return t_L
+        raise TypeError(f"Expected int or list, got {type(t_L).__name__}")
+
+
+
+
 
 
     @staticmethod
@@ -105,5 +111,5 @@ class MatrixCreation:
         return random.randint(x,y)
 
 #just for checking  whiles coding,wrote  tests  later
-m = MatrixCreation.matrix_2d(2)
+m = MatrixCreation.matrix_1d()
 print(m)
