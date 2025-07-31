@@ -7,20 +7,20 @@ import  random
 
 class MatrixCreation:
     @staticmethod
-    def matrix_2d(inputs: Union[List,Tuple],function=None,Type=None):
+    def matrix_2d(inputs: Union[List,Tuple],function=None,fill=None):
         if isinstance(inputs,tuple):
-            if Type is not None and function is None:
-                return [ [Type for _ in  range(inputs[1])] for _ in  range(inputs[0])] #zeros and ones
+            if fill is not None and function is None:
+                return [ [fill for _ in  range(inputs[1])] for _ in  range(inputs[0])] #zeros and ones
 
             if  function =='normal':
                 if inputs[0]<0 or inputs[1]<0:
                     raise ValueError('dimensions must be positive')
-                if  Type:
+                if  fill:
                     L =  [ [0 for _ in  range(inputs[1])] for _ in  range(inputs[0])]
                     idx =  0
                     for i in range(len(L)):
                         for j in range(len(L[0])):
-                                L[i][j] = Type[idx]
+                                L[i][j] = fill[idx]
                                 idx += 1
                     return L
             if function  ==  'I':
@@ -44,16 +44,16 @@ class MatrixCreation:
 
 
     @staticmethod
-    def matrix_1d(t_L:Union[List,int],Type=None):
+    def matrix_1d(t_L:Union[List,int],fill=None):
         #for ones and  zeros
         if isinstance(t_L,int) :
-            if Type:
-                L =  [Type for _ in range(t_L)]
+            if fill:
+                L =  [fill for _ in range(t_L)]
                 return L
         elif isinstance(t_L,list):
             if not t_L:
                 raise ValueError('Empty  List  is not a valid 1D')
-            elif  isinstance(t_L[0],list) and  Type is None:
+            elif  isinstance(t_L[0],list) and  fill is None:
                 raise ValueError('Expected 1D ')
             return t_L
 
@@ -64,9 +64,9 @@ class MatrixCreation:
         if n1 is None: #none case
             raise ValueError('at least 1 dimensions must be provided')
         if n2 is None:# 1D case
-            zeros = MatrixCreation.matrix_1d(n1,Type=0)
+            zeros = MatrixCreation.matrix_1d(n1,fill=0)
         else:
-            zeros =  MatrixCreation.matrix_2d((n1,n2),Type=0) # 2d case
+            zeros =  MatrixCreation.matrix_2d((n1,n2),fill=0) # 2d case
         return  zeros
 
     @staticmethod
@@ -75,16 +75,16 @@ class MatrixCreation:
         if n1 is None: #none case
             raise ValueError('at least 1 dimensions must be provided')
         if n2 is None:# 1D case
-            ones = MatrixCreation.matrix_1d(n1,Type=1)# 1 for ones
+            ones = MatrixCreation.matrix_1d(n1,fill=1)# 1 for ones
         else:
-            ones =  MatrixCreation.matrix_2d((n1,n2),Type=1) # 2d case
+            ones =  MatrixCreation.matrix_2d((n1,n2),fill=1) # 2d case
         return  ones
 
     @staticmethod
     def Identity(x,y):
         if x<0 or y<0:
             raise ValueError('dimensions must be positive')
-        I = MatrixCreation.matrix_2d((x,y),function='I',Type=None)
+        I = MatrixCreation.matrix_2d((x,y),function='I',fill=None)
         return I
 
 
@@ -98,7 +98,7 @@ class MatrixCreation:
         if len(size) == 1:
             normal = [random.uniform(low,high) for i in range(size[0])]
         else:
-            normal = MatrixCreation.matrix_2d(size,function='normal',Type=[random.uniform(low,high) for _ in range(size[0]*size[1])])
+            normal = MatrixCreation.matrix_2d(size,function='normal',fill=[random.uniform(low,high) for _ in range(size[0]*size[1])])
         return  normal
 
 
