@@ -8,16 +8,14 @@ import  random
 class MatrixCreation:
     @staticmethod
     def matrix_2d(inputs: Union[List,Tuple],function=None,Type=None):
-
-        if  isinstance(inputs,int) and function is None and Type is  None:
-            raise ValueError('must be list form')
+        if not isinstance(inputs[0],List) and function is None and Type is None:
+                raise ValueError('must be 2 dimensions ')
+        
         if isinstance(inputs,tuple ) and function is None: #for zeros  and ones
             L =  [ [Type for _ in  range(inputs[1])] for _ in  range(inputs[0])]
             return  L
 
         if  function =='normal':
-            if not isinstance(inputs,tuple) :
-                raise ValueError('must be a tuple')
             if inputs[0]<0 or inputs[1]<0:
                 raise ValueError('dimensions must be positive')
             L =  [ [0 for _ in  range(inputs[1])] for _ in  range(inputs[0])]
@@ -29,8 +27,6 @@ class MatrixCreation:
                             idx += 1
                 return L
         if function  ==  'I':
-            if not isinstance(inputs,tuple) :
-                raise ValueError('must be a tuple')
             if inputs[0]<0 or inputs[1]<0:
                 raise ValueError('dimensions must be positive')
             matrix  = [ [0 for _ in  range(inputs[1])] for _ in  range(inputs[0])]
@@ -47,7 +43,7 @@ class MatrixCreation:
     def matrix_1d(t_L:Union[List,int],function=None,Type=None,):
         #for ones and  zeros
         if  isinstance(t_L,int) and function is None and Type is  None:
-            raise ValueError('must be list form')
+            raise TypeError('must be list form')
         if isinstance(t_L,int) :
             if function is None:
                 L =  [Type for _ in range(t_L)]
@@ -111,5 +107,5 @@ class MatrixCreation:
         return random.randint(x,y)
 
 #just for checking  whiles coding,wrote  tests  later
-m = MatrixCreation.matrix_1d()
+m = MatrixCreation.matrix_2d()
 print(m)
