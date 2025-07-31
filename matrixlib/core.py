@@ -8,12 +8,15 @@ import  random
 class MatrixCreation:
     @staticmethod
     def matrix_2d(inputs: Union[List,Tuple],function=None,Type=None):
+
+        if  isinstance(inputs,int):
+            raise ValueError('must be int form')
         if isinstance(inputs,tuple ) and function is None: #for zeros  and ones
             L =  [ [Type for _ in  range(inputs[1])] for _ in  range(inputs[0])]
             return  L
 
         if  function =='normal':
-            if isinstance(inputs,tuple) :
+            if not isinstance(inputs,tuple) :
                 raise ValueError('must be a tuple')
             if inputs[0]<0 or inputs[1]<0:
                 raise ValueError('dimensions must be positive')
@@ -26,7 +29,7 @@ class MatrixCreation:
                             idx += 1
                 return L
         if function  ==  'I':
-            if isinstance(inputs,tuple) :
+            if not isinstance(inputs,tuple) :
                 raise ValueError('must be a tuple')
             if inputs[0]<0 or inputs[1]<0:
                 raise ValueError('dimensions must be positive')
@@ -36,19 +39,22 @@ class MatrixCreation:
                     if i ==j:
                         matrix[i][j]=1
             return matrix
+
         return  inputs #returns initialized list
 
 
     @staticmethod
     def matrix_1d(t_L:Union[List,int],function=None,Type=None,):
         #for ones and  zeros
-
-        if isinstance(t_L,int) and function is None:
-            L =  [Type for _ in range(t_L)]
-            return L
         if isinstance(t_L,List):
             return t_L
-        raise ValueError('should not be int or  list')
+        if isinstance(t_L,int) :
+            if function is None:
+                L =  [Type for _ in range(t_L)]
+                return L
+            else:
+                raise ValueError('must not be a  scalar(list form is a must)')
+
 
     @staticmethod
     def zeros(n1=None,n2=None):
@@ -99,5 +105,5 @@ class MatrixCreation:
         return random.randint(x,y)
 
 #just for checking  whiles coding,wrote  tests  later
-m = MatrixCreation.matrix_1d(2)
+m = MatrixCreation.matrix_2d(2)
 print(m)
