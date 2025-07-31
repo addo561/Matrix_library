@@ -8,65 +8,65 @@ import  random
 class MatrixCreation:
     @staticmethod
     def matrix_2d(inputs: Union[List,Tuple],function=None,Type=None):
-        try:
-            if isinstance(inputs,tuple ) and function is None: #for zeros  and ones
-                L =  [ [Type for _ in  range(inputs[1])] for _ in  range(inputs[0])]
-                return  L
+        if isinstance(inputs,tuple ) and function is None: #for zeros  and ones
+            L =  [ [Type for _ in  range(inputs[1])] for _ in  range(inputs[0])]
+            return  L
 
-            if  function =='normal':
-                L =  [ [0 for _ in  range(inputs[1])] for _ in  range(inputs[0])]
-                if Type:
-                    idx =  0
-                    for i in range(len(L)):
-                        for j in range(len(L[0])):
-                                L[i][j] = Type[idx]
-                                idx += 1
-                    return L
-            if function  ==  'I':
-                matrix  = [ [0 for _ in  range(inputs[1])] for _ in  range(inputs[0])]
-                for i in range(inputs[0]):
-                    for j  in range(inputs[1]):
-                        if i ==j:
-                            matrix[i][j]=1
-                return matrix
-        except Exception  as e:
-            print(f'Error:{e}')
+        if  function =='normal':
+            L =  [ [0 for _ in  range(inputs[1])] for _ in  range(inputs[0])]
+            if Type:
+                idx =  0
+                for i in range(len(L)):
+                    for j in range(len(L[0])):
+                            L[i][j] = Type[idx]
+                            idx += 1
+                return L
+        if function  ==  'I':
+            matrix  = [ [0 for _ in  range(inputs[1])] for _ in  range(inputs[0])]
+            for i in range(inputs[0]):
+                for j  in range(inputs[1]):
+                    if i ==j:
+                        matrix[i][j]=1
+            return matrix
         return  inputs #returns initialized list
 
 
     @staticmethod
     def matrix_1d(t_L:Union[List,int],function=None,Type=None,):
         #for ones and  zeros
-        try:
-            if isinstance(t_L,int) and function is None:
-                L =  [Type for _ in range(t_L)]
-                return L
-        except Exception as e:
-            print(f'Error: {e}')
-        return t_L #returns initialized list
+        if isinstance(t_L,int) and function is None:
+            L =  [Type for _ in range(t_L)]
+            return L
+        if isinstance(t_L,List):
+            return t_L
+        raise ValueError('should not be scalar')
 
     @staticmethod
     def zeros(n1=None,n2=None):
         #takes input  as two integers
-        zeros = []
-        if n1 and not  n2:
-            zeros = MatrixCreation.matrix_1d(n1,Type=0)# O for zeros
-        elif  n1 and n2 :
-            zeros =  MatrixCreation.matrix_2d((n1,n2),Type=0)
+        if n1 is None: #none case
+            raise ValueError('at least 1 dimensions must be provided')
+        if n2 is None:# 1D case
+            zeros = MatrixCreation.matrix_1d(n1,Type=1)
+        else:
+            zeros =  MatrixCreation.matrix_2d((n1,n2),Type=1) # 2d case
         return  zeros
 
     @staticmethod
     def ones(n1=None,n2=None):
         #takes input  as two integers
-        ones = []
-        if n1 and not  n2:
+        if n1 is None: #none case
+            raise ValueError('at least 1 dimensions must be provided')
+        if n2 is None:# 1D case
             ones = MatrixCreation.matrix_1d(n1,Type=1)# 1 for ones
-        elif  n1 and n2 :
-            ones =  MatrixCreation.matrix_2d((n1,n2),Type=1)
+        else:
+            ones =  MatrixCreation.matrix_2d((n1,n2),Type=1) # 2d case
         return  ones
 
     @staticmethod
     def Identity(x,y):
+        if x<0 or y<0:
+            raise ValueError('dimensions must be positive')
         I = MatrixCreation.matrix_2d((x,y),function='I',Type=None)
         return I
 
@@ -74,8 +74,7 @@ class MatrixCreation:
 
     @staticmethod
     def normal(low,high,size:Tuple):
-        assert low > high ,'low value grreater than high'
-        assert size == Tuple, 'size must be a tuple'
+        assert low < high ,f'lower bound greater than high,  fix ({low,high})'
         normal = []
         if len(size) == 1:
             normal = [random.uniform(low,high) for i in range(size[0])]
@@ -86,8 +85,10 @@ class MatrixCreation:
 
     @staticmethod
     def randint(x,y):
+        if x > y:
+            raise ValueError('lower bound must be lesser than  upper bound')
         return random.randint(x,y)
 
 #just for checking  whiles coding,wrote  tests  later
-m = MatrixCreation.Identity(2,2)
+m = MatrixCreation.matrix_1d(2)
 print(m)
