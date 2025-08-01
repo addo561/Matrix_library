@@ -10,7 +10,8 @@ ones = core.MatrixCreation.ones
 randint =  core.MatrixCreation.randint
 normal =  core.MatrixCreation.normal
 
-#simple testing ()
+#simple testing
+# for matrix_2d
 @pytest.mark.parametrize(
     'test_input,expected,raises',
     [
@@ -18,7 +19,23 @@ normal =  core.MatrixCreation.normal
         ([2,2],None,True)
     ]
 )
-def test_eval(test_input, expected,raises):
+def M2d(test_input, expected,raises):
+    if raises:
+        with pytest.raises(ValueError,match='Expected 2D'):
+            matrix_2d(test_input)
+    else:
+        assert matrix_2d(test_input) == expected
+
+#for 1D
+@pytest.mark.parametrize(
+    'test_input,expected,raises',
+    [
+        ([2,2],[2,2],False),
+        ([[2,2]],None,True),
+        (2,2,[2,2],False)
+    ]
+)
+def M1d(test_input, expected,raises):
     if raises:
         with pytest.raises(ValueError,match='Expected 2D'):
             matrix_2d(test_input)
