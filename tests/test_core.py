@@ -19,7 +19,7 @@ normal =  core.MatrixCreation.normal
         ([2,2],None,True)
     ]
 )
-def M2d(test_input, expected,raises):
+def test_M2d(test_input, expected,raises):
     if raises:
         with pytest.raises(ValueError,match='Expected 2D'):
             matrix_2d(test_input)
@@ -35,7 +35,7 @@ def M2d(test_input, expected,raises):
         (2,2,[2,2],False)
     ]
 )
-def M1d(test_input, expected,raises):
+def test_M1d(test_input, expected,raises):
     if raises:
         with pytest.raises(ValueError,match='Expected 2D'):
             matrix_2d(test_input)
