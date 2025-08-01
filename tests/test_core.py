@@ -11,6 +11,16 @@ randint =  core.MatrixCreation.randint
 normal =  core.MatrixCreation.normal
 
 #simple testing ()
-@pytest.mark.parametrize('test_input,expected',[([[2,2]],[[2,2]]), ([2,2],ValueError) ])
-def test_eval(test_input, expected):
-    assert matrix_2d(test_input) == expected
+@pytest.mark.parametrize(
+    'test_input,expected,raises',
+    [
+        ([[2,2]],[[2,2]],False),
+        ([2,2],None,True)
+    ]
+)
+def test_eval(test_input, expected,raises):
+    if raises:
+        with pytest.raises(ValueError,match='Expected 2D'):
+            matrix_2d(test_input)
+    else:
+        assert matrix_2d(test_input) == expected
