@@ -56,6 +56,7 @@ class MatrixCreation:
             elif  isinstance(t_L[0],list) and  fill is None:
                 raise ValueError('Expected 1D ')
             return t_L
+        raise TypeError(f'Expected list but got {type(t_L).__name__}')
 
 
     @staticmethod

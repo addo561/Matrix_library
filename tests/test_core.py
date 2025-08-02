@@ -32,12 +32,12 @@ def test_M2d(test_input, expected,raises):
     [
         ([2,2],[2,2],False),
         ([[2,2]],None,True),
-        (2,2,[2,2],False)
+        ((2,2),None,True)
     ]
 )
 def test_M1d(test_input, expected,raises):
     if raises:
-        with pytest.raises(ValueError,match='Expected 2D'):
-            matrix_2d(test_input)
+        with pytest.raises(Exception):
+            matrix_1d(test_input)
     else:
-        assert matrix_2d(test_input) == expected
+        assert matrix_1d(test_input) == expected
